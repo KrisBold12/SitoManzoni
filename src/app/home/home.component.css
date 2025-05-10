@@ -308,5 +308,10 @@ p {
     .contact-form-container p {
       margin-bottom: -10%;
     }
+
+    #text-overlay2 {
+      margin-top: 0%;
+    }
+    
   }
 }
