@@ -15,6 +15,12 @@ export class ContactFormComponent {
   contactForm: FormGroup;
   toastMessage: string | null = null;
   toastType: 'success' | 'error' | null = null;
+  messageSent = false;
+  messageout = "";
+  success = "Your message has been sent successfully. We will contact you as soon as possible.";
+  failure = "There was a problem with your message, please try again."
+  messageType: 'success' | 'error' | null = null;
+
 
   constructor(private fb: FormBuilder, private emailService: EmailService) {
     this.contactForm = this.fb.group({
@@ -24,32 +30,37 @@ export class ContactFormComponent {
     });
   }
 
-  onSubmit() {
-    if (this.contactForm.valid) {
-      this.emailService.sendEmail(
-        this.contactForm.value.name,
-        this.contactForm.value.email,
-        this.contactForm.value.message
-      ).then(response => {
-        this.showToast('Message sent successfully!', 'success');
-        this.contactForm.reset();
-      }).catch(error => {
-        this.showToast('Error sending message. Please try again.', 'error');
-      });
-    }
+onSubmit() {
+  if (this.contactForm.valid) {
+    this.emailService.sendEmail(
+      this.contactForm.value.name,
+      this.contactForm.value.email,
+      this.contactForm.value.message
+    ).then(response => {
+      //throw new Error('Errore simulato'); //debug error
+      this.messageout = this.success;
+      this.messageType = 'success';
+      this.messageSent = true;
+      this.resetMessageAfterDelay();
+    }).catch(error => {
+      this.messageout = this.failure;
+      this.messageType = 'error';
+      this.messageSent = true;
+      this.resetMessageAfterDelay();
+    });
   }
+}
 
-  showToast(message: string, type: 'success' | 'error') {
-    this.toastMessage = message;
-    this.toastType = type;
-    
-    setTimeout(() => {
-      this.toastMessage = null;
-      this.toastType = null;
-    }, 4000);
-  }
 
   onBlur(controlName: string) {
     this.contactForm.get(controlName)?.markAsTouched();
   }
+
+  private resetMessageAfterDelay() {
+  setTimeout(() => {
+    this.messageSent = false;
+    this.messageout = "";
+    this.messageType = null;
+  }, 5000);
+}
 }

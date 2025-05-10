@@ -1,38 +1,42 @@
-<form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-  <div class="form-container">
-    <div class="left-side">
-      <textarea
-        id="message"
-        formControlName="message"
-        placeholder="Type your message"
-        (blur)="onBlur('message')"></textarea>
-    </div>
+<div class="form-wrapper">
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" [ngClass]="{'fade-out': messageSent, 'hidden': messageSent}">
+    <div class="form-container fade-in">
+      <div class="left-side">
+        <textarea
+          id="message"
+          formControlName="message"
+          placeholder="Type your message"
+          (blur)="onBlur('message')"></textarea>
+      </div>
 
-    <div class="right-side">
-      <input
-        id="name"
-        formControlName="name"
-        type="text"
-        placeholder="Enter your name"
-        (blur)="onBlur('name')">
-      
-      <input
-        id="email"
-        formControlName="email"
-        type="email"
-        placeholder="Enter your email"
-        (blur)="onBlur('email')">
-      <div *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.invalid">
-        <small *ngIf="contactForm.get('email')?.errors?.['email']">Please enter a valid email address.</small>
+      <div class="right-side">
+        <input
+          id="name"
+          formControlName="name"
+          type="text"
+          placeholder="Enter your name"
+          (blur)="onBlur('name')">
+
+        <input
+          id="email"
+          formControlName="email"
+          type="email"
+          placeholder="Enter your email"
+          (blur)="onBlur('email')">
+
+        <div *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.invalid">
+          <small *ngIf="contactForm.get('email')?.errors?.['email']">Please enter a valid email address.</small>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Submit button -->
-  <button type="submit" [disabled]="contactForm.invalid">Send</button>
-</form>
+    <button class="fade-in" type="submit" [disabled]="contactForm.invalid">Send</button>
+  </form>
 
-<!-- Toast notification -->
-<div *ngIf="toastMessage" class="toast" [ngClass]="toastType === 'success' ? 'toast-success' : 'toast-error'">
-  {{ toastMessage }}
+  <div class="feedback-message fade-in fade-out"
+     [ngClass]="messageType"
+     *ngIf="messageSent">
+  {{ messageout }}
+</div>
+
 </div>

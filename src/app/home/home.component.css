@@ -177,7 +177,7 @@
 
 .contact-form-container {
   width: 90%;
-  margin-bottom: 20%;
+  
 }
 
 .custom-hr {
@@ -186,10 +186,6 @@
   margin-bottom: 0px;
   border: 1px solid #8d8d8d; /* Puoi personalizzare il colore e lo spessore del bordo */
   opacity: 0.8; /* Imposta un po' di trasparenza, se desiderato */
-}
-
-.contact-form-container p {
-  margin-bottom: 2%;
 }
 
 
@@ -287,10 +283,6 @@ p {
     font-size: 6rem; /* Riduci la dimensione del numero su schermi medi */
   }
 
-  .contact-form-container {
-    margin-bottom: 5%;
-  }
-
   h1 {
     font-size: 1.5rem;
   }
@@ -311,6 +303,10 @@ p {
   
     .info-label {
       font-size: 1.2rem; /* Riduci leggermente il testo delle etichette per schermi piccoli */
+    }
+
+    .contact-form-container p {
+      margin-bottom: -10%;
     }
   }
 }
