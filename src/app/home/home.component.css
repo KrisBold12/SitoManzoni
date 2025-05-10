@@ -283,6 +283,10 @@ p {
     font-size: 6rem; /* Riduci la dimensione del numero su schermi medi */
   }
 
+  #text-overlay2 {
+      margin-top: -10%;
+    }
+
   h1 {
     font-size: 1.5rem;
   }
